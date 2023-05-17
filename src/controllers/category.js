@@ -79,9 +79,7 @@ export const createCategoryProcess = async (req,res) => {
           `;
           const [elet]  = await Query.write(query, { imgTitle, url_img });
           const imgId = elet.insertId; // on recupère l'id de l'element inseré
-          // insertion de la catégorie 
-
-          console.log (imgId)
+          // insertion de la catégorie
 
           const query2 = `
             INSERT INTO category (title, description, img_id) 
@@ -98,3 +96,38 @@ export const createCategoryProcess = async (req,res) => {
     res.json({ msg: error });
   }
 }
+
+/**
+ * Delete category
+ */
+export const deleteCat = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const query = `DELETE  FROM category WHERE id = ?`;
+        await Query.doByValue(query, parseInt(id));
+        res.status(200).json ( "deleted ");
+    } catch (error) {
+        res.status(200).json({ msg: error });
+    }
+};
+
+/**
+ * Modify category
+ */
+export const modifyCat = async (req, res) => {
+  const { id } = req.params;
+  const { title, description } = req.body;
+
+
+  try {
+    const query = `UPDATE category
+          SET title=?, description =? 
+          WHERE id = ?
+    `;
+    await Query.write(query, { title, description, id });
+    res.status(200).json("updated ");
+  } catch (error) {
+    res.status(200).json({ msg: error });
+  }
+}
+

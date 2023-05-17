@@ -6,7 +6,7 @@ class Query {
     return result;
   }
 
-  static async findByValue(query, value) {
+  static async doByValue(query, value) {
     const [result] = await pool.execute(query, [value]);
     return result;
   }
@@ -14,7 +14,7 @@ class Query {
   // on passe un objet et la methode recupère les values
   //**
   //  const query = `
-  //     INSERT INTO com (user, msg, date, id_story) 
+  //     INSERT INTO com (user, msg, date, id_story)
   //     VALUES (?, ?, NOW(), ?)
   //   `;
   //   await Query.write(query, { alias, comment, id_story });
@@ -23,6 +23,8 @@ class Query {
     const result = pool.execute(query, [...Object.values(data)]);
     return result;
   }
+
+ 
 }
 
 export default Query;
