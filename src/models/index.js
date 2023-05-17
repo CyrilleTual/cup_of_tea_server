@@ -12,6 +12,13 @@ class Query {
   }
 
   // on passe un objet et la methode recupère les values
+  //**
+  //  const query = `
+  //     INSERT INTO com (user, msg, date, id_story) 
+  //     VALUES (?, ?, NOW(), ?)
+  //   `;
+  //   await Query.write(query, { alias, comment, id_story });
+  //  */
   static async write(query, data) {
     const result = pool.execute(query, [...Object.values(data)]);
     return result;
