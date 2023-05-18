@@ -1,5 +1,6 @@
 import express from "express";
 import "dotenv/config";
+import cors from "cors";
 
 // on récupère les variables d'environnement
 import { LOCAL_PORT } from "./config/const.js";
@@ -15,15 +16,13 @@ const app = express();
 
 
 app
+  .use(cors({
+      origin: '*'
+  }))
   .use(express.static("public"))
   .use(express.json()) // basé sur body-parse rôle pour le json
   .use(express.urlencoded({ extended: true })) // aussi basé sur body parser
   .use(router);
-
-
- 
- 
-
  
 app.post("/test", createCategoryProcess);
 
