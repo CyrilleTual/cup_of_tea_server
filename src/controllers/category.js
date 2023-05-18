@@ -10,9 +10,9 @@ export const adminDisplayCat = async (req, res) => {
         FROM category
         JOIN img ON category.img_id = img.id
     `;
-      const result = await Query.find(query);
+      const categories = await Query.find(query);
 
-      res.status(200).json({ result });
+      res.status(200).json({ categories });
     
     } catch (error) {
       res.json({ msg: error });
