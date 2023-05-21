@@ -9,7 +9,9 @@ export const displayTea = async (req, res) => {
   try {
     // recupération des champs du post
     const query = `
-        SELECT * FROM tea
+        SELECT tea.id as teaId, category_id, mainTitle, subTitle, description, img.id as imgId,  img.url 
+        FROM  tea
+        JOIN img ON tea.img_id = img.id
     `;
     const result = await Query.find(query);
     res.status(200).json({ result });
@@ -123,3 +125,19 @@ export const createTea = async (req, res) => {
     res.json({ msg: error });
   }
 }
+
+
+/**
+ * Delete tea
+ */
+export const deleteTea = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const query = `DELETE  FROM tea WHERE id = ?`;
+        await Query.doByValue(query, parseInt(id));
+        res.status(200).json ( "deleted ");
+    } catch (error) {
+        res.status(200).json({ msg: error });
+    }
+};
+
