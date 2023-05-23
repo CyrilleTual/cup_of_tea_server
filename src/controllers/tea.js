@@ -107,8 +107,6 @@ export const createTea = async (req, res) => {
               VALUES (?, ?, ?, ?, ?)
           `;
 
-
-
           await Query.write(query2, {
             mainTitle,
             subTitle,
