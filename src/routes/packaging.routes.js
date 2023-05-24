@@ -4,10 +4,10 @@ import { createPack, deletepack, displayPack, modifyPack } from "../controllers/
 
 const router = Router();
 
-router.get("/", displayPack); // donc route /packaging
+router.get("/", displayPack); // donc route /pack
 router.post("/add", createPack);
 router.delete("/delete/:id", deletepack);
 router.put("/modify/:id", modifyPack);
 
 export default router;
- 
+

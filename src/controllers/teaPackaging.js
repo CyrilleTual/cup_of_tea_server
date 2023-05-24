@@ -20,9 +20,12 @@ export const displayTeaPack = async (req, res) => {
  * creation d'un teaPackaging
  */
 export const createTeaPack = async (req, res) => {
-  const { stock, price, tea_id, packaging_id } = req.body;
+
+  const { stock, price, tea_id, packaging_id } =(req.body);
+
+  console.log(stock, price, tea_id, packaging_id);
+
   try {
-    // recupération des champs du post
     const query = `
         INSERT INTO teaPackaging (stock, price, tea_id, packaging_id) 
         VALUES (?, ?, ?, ?)
@@ -37,4 +40,5 @@ export const createTeaPack = async (req, res) => {
   } catch (error) {
     res.json({ msg: error });
   }
+   
 };
