@@ -9,7 +9,7 @@ export const displayTea = async (req, res) => {
   try {
     // recupération des champs du post
     const query = `
-        SELECT tea.id as teaId, category_id, mainTitle, subTitle, description, img.id as imgId,  img.url 
+        SELECT tea.id as teaId, category_id, mainTitle, subTitle, description, isFavorite, img.id as imgId,  img.url 
         FROM  tea
         JOIN img ON tea.img_id = img.id
     `;
@@ -139,3 +139,54 @@ export const deleteTea = async (req, res) => {
     }
 };
 
+
+
+/**
+ * Modify tea
+ */
+
+export const modifyTea = async (req, res) => {
+  const { id } = req.params;
+  const { mainTitle, subTitle, description, category_id } 
+      = JSON.parse(req.body.data);
+  try {
+    const query = `UPDATE tea
+          SET mainTitle=?, subTitle=?, description=?, category_id=?
+          WHERE id = ?`;
+    await Query.write(query, {
+      mainTitle,
+      subTitle,
+      description,
+      category_id,
+      id
+    });
+    res.status(200).json("updated ");
+  } catch (error) {
+    res.status(200).json({ msg: error });
+  }
+
+}
+
+/**
+ * Set Favorite
+ */
+export const setFavorite = async (req, res ) => {
+ 
+  console.log (req.body.data)
+
+  const { newFavoriteId, oldFavoriteId } = JSON.parse(req.body.data);
+
+  console.log(newFavoriteId, oldFavoriteId);
+  try {
+    const query1 = `UPDATE tea SET isFavorite = 1 WHERE id = ?`;
+    const query2 = `UPDATE tea SET isFavorite = 0 WHERE id = ?`;
+
+    await Query.write(query1, { newFavoriteId });
+    await Query.write(query2, { oldFavoriteId });
+
+    res.status(200).json("updated ");
+  } 
+  catch (error) {
+     res.status(200).json({ msg: error });
+  }
+}
