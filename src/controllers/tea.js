@@ -168,15 +168,12 @@ export const modifyTea = async (req, res) => {
 }
 
 /**
- * Set Favorite
+ * switch de Favorite
  */
 export const setFavorite = async (req, res ) => {
- 
-  console.log (req.body.data)
 
   const { newFavoriteId, oldFavoriteId } = JSON.parse(req.body.data);
 
-  console.log(newFavoriteId, oldFavoriteId);
   try {
     const query1 = `UPDATE tea SET isFavorite = 1 WHERE id = ?`;
     const query2 = `UPDATE tea SET isFavorite = 0 WHERE id = ?`;
